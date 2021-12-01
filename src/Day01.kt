@@ -1,17 +1,21 @@
 fun main() {
     // Part 1
     readIntInput("Day01_test")
-        .getTotalDepthIncreases { check(this == 7) }
+        .getTotalDepthIncreases()
+        .also { check(it == 7) }
     readIntInput("Day01")
-        .getTotalDepthIncreases(::println)
+        .getTotalDepthIncreases()
+        .also(::println)
 
     // Part 2
     readIntInput("Day01_test")
         .withSlidingWindows()
-        .getTotalDepthIncreases { check(this == 5) }
+        .getTotalDepthIncreases()
+        .also { check(it == 5) }
     readIntInput("Day01")
         .withSlidingWindows()
-        .getTotalDepthIncreases(::println)
+        .getTotalDepthIncreases()
+        .also(::println)
 }
 
 private fun List<Int>.withSlidingWindows() =
@@ -19,10 +23,10 @@ private fun List<Int>.withSlidingWindows() =
         if(index + 2 < size){ depth + get(index+1) + get(index+2) } else { null }
     }.filterNotNull()
 
-private fun List<Int>.getTotalDepthIncreases(block: Int.() -> Unit = {}) =
+private fun List<Int>.getTotalDepthIncreases() =
     mapIndexed { index, depth ->
         if (getPreviousDepth(index, depth) >= depth) { 0 } else { 1 }
-    }.sum().block()
+    }.sum()
 
 private fun <T> List<T>.getPreviousDepth(index: Int, depth: T) = this.getOrElse(index - 1) { depth }
 
