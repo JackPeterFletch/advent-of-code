@@ -58,21 +58,25 @@ data class Line(val start: Coord, val end: Coord) {
         }
 
     fun crossesCoordDiagonal(coord: Coord): Boolean {
-        //if(isFlat()) return false
-//
-//
-//
-        //if(start.x < end.x && start.y < end.y){
-        //    val i = 0
-        //    while(start.x <= start.x + i && end.x <= end.x + i){
-//
-        //    }
-        //}
+        if (isFlat()) return false
 
+        val incrementX = getIncrement(start.x, end.x)
+        val incrementY = getIncrement(start.y, end.y)
+        var (x, y) = start
+        while (x != (end.x + incrementX) || (y != (end.y + incrementY))){
+            if (coord.x == x && coord.y == y) return true
+            x += incrementX
+            y += incrementY
+        }
         return false
-
     }
 
+    private fun getIncrement(start: Int, end: Int) =
+        when {
+            (start < end) -> 1
+            (start > end) -> -1
+            else -> 0
+        }
 
     private fun matchesYAxis(coord: Coord) = coord.y == start.y
     private fun matchesXAxis(coord: Coord) = coord.x == start.x
