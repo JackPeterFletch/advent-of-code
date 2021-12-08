@@ -5,7 +5,7 @@ fun main() {
     part02("Day04")
 }
 
-fun part01(inputFile: String){
+private fun part01(inputFile: String){
     val input = readInput(inputFile)
 
     BingoGame(buildBingoBoards(input))
@@ -14,7 +14,7 @@ fun part01(inputFile: String){
         .apply { println(board.sumUnmarked() * winningNumber) }
 }
 
-fun part02(inputFile: String){
+private fun part02(inputFile: String){
     val input = readInput(inputFile)
 
     BingoGame(buildBingoBoards(input))
